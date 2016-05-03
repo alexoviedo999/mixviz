@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { Container, Panel } from 'muicss/react';
 import MovieResultsList from './MovieResultsList.jsx';
+import 'es6-promise';
+import 'whatwg-fetch';
 
 import {
 	Appbar,
@@ -60,10 +62,12 @@ class App extends Component {
 	render() {
 		const {movieSearch} = this.state;
 		const {movieResults} = this.state;
+		const { movies, addMovie, store } = this.props;
+		// debugger;
+		console.log('store state 2',store.getState());
+		let input;
 
 	    // debugger;
-
-	    let input;
 
 		return (
 			<div>
@@ -82,7 +86,7 @@ class App extends Component {
 					</Panel>
 				</Container>
 
-				<MovieResultsList movieResults={movieResults}/>
+				<MovieResultsList movieResults={movieResults} store={store}/>
 
 			</div>
 		)
