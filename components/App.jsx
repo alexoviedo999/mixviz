@@ -19,6 +19,7 @@ class App extends Component {
 			movieResults: []
 		}
 
+		this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
 		this.handleUpdate = this.handleUpdate.bind(this);
 	}
 
@@ -33,6 +34,25 @@ class App extends Component {
 	}
 
 
+	handleSearchSubmit (e) {
+		e.preventDefault();
+		const {movieSearch} = this.state;
+
+		//api post
+		const jsonMovie = JSON.stringify(movieSearch);
+
+ 		const fetchResult = fetch('http://api-public.guidebox.com/v1.43/us/rK0qtdrghc9FwaOoreuEdnOlbZA3SRPq/search/movie/title/'+ movieSearch.title + '/exact')
+		.then(function(response) {
+			console.log('response', response);
+		    return response.json()
+		})
+		.then((body) => {
+		    console.log('success', body);
+		})
+		.catch(function(error) {
+    		console.log('request failed', error)
+        });
+	}
 
 
 	render() {
@@ -54,7 +74,7 @@ class App extends Component {
 								required={true}
 								value={movieSearch.title}
 								onChange={(e) => this.handleUpdate(e.target.value)} />
-							<Button variant="raised" type="submit">Send</Button>
+							<Button variant="raised" type="submit" onClick={e => this.handleSearchSubmit(e)}>Send</Button>
 						</div>
 					</Panel>
 				</Container>
