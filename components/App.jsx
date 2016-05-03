@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Container, Panel } from 'muicss/react';
+import MovieResultsList from './MovieResultsList.jsx';
 
 import {
 	Appbar,
@@ -48,6 +49,7 @@ class App extends Component {
 		})
 		.then((body) => {
 		    console.log('success', body);
+			this.setState({movieResults:body.results})
 		})
 		.catch(function(error) {
     		console.log('request failed', error)
@@ -57,6 +59,7 @@ class App extends Component {
 
 	render() {
 		const {movieSearch} = this.state;
+		const {movieResults} = this.state;
 
 	    // debugger;
 
@@ -78,6 +81,8 @@ class App extends Component {
 						</div>
 					</Panel>
 				</Container>
+
+				<MovieResultsList movieResults={movieResults}/>
 
 			</div>
 		)
