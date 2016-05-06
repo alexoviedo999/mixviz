@@ -1,14 +1,17 @@
 import React, {Component} from 'react';
 import { Container, Panel } from 'muicss/react';
-import MovieResultsList from './MovieResultsList.jsx';
 import 'es6-promise';
 import 'whatwg-fetch';
-
 import {
 	Appbar,
 	Input,
 	Button
 } from 'muicss/react';
+import MovieResultsList from './MovieResultsList.jsx';
+import MovieCollection from './MovieCollection.jsx';
+import {searchMovies} from '../actions';
+import { connect } from 'react-redux'
+
 
 class App extends Component {
 
@@ -22,8 +25,9 @@ class App extends Component {
 			movieResults: []
 		}
 
-		this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
+		// this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
 		this.handleUpdate = this.handleUpdate.bind(this);
+		// this.addToMovieCollection = this.addToMovieCollection.bind(this);
 	}
 
 	handleUpdate(value){
@@ -37,36 +41,11 @@ class App extends Component {
 	}
 
 
-	handleSearchSubmit (e) {
-		e.preventDefault();
-		const {movieSearch} = this.state;
-
-		//api post
-		const jsonMovie = JSON.stringify(movieSearch);
-
- 		const fetchResult = fetch('http://api-public.guidebox.com/v1.43/us/rK0qtdrghc9FwaOoreuEdnOlbZA3SRPq/search/movie/title/'+ movieSearch.title + '/exact')
-		.then(function(response) {
-			console.log('response', response);
-		    return response.json()
-		})
-		.then((body) => {
-		    console.log('success', body);
-			this.setState({movieResults:body.results})
-		})
-		.catch(function(error) {
-    		console.log('request failed', error)
-        });
-	}
-
 
 	render() {
 		const {movieSearch} = this.state;
 		const {movieResults} = this.state;
 		const { movies, addMovie, store } = this.props;
-		// debugger;
-		console.log('store state 2',store.getState());
-		let input;
-
 	    // debugger;
 
 		return (
@@ -81,18 +60,34 @@ class App extends Component {
 								required={true}
 								value={movieSearch.title}
 								onChange={(e) => this.handleUpdate(e.target.value)} />
-							<Button variant="raised" type="submit" onClick={e => this.handleSearchSubmit(e)}>Send</Button>
+							<Button variant="raised" type="submit" onClick={e => searchMovies(this.state.movieSearch.title)}>Send</Button>
 						</div>
 					</Panel>
 				</Container>
 
-				<MovieResultsList movieResults={movieResults} store={store}/>
+				<MovieResultsList />
+
+				<MovieCollection />
 
 			</div>
 		)
 	}
 
 }
+
+
+//get data into commponent
+const mapStateToProps = state => ({
+	//set on reducer using thunk
+  movies: state.searchResults
+});
+
+//get data out of component
+const mapDispatchToProps = dispatch => ({
+  addMovie: title => dispatch( searchMovies( title ) ),
+});
+// export default MovieResultsList;
+export default connect( mapStateToProps, mapDispatchToProps )( App );
 
 
 export default App;
