@@ -9,8 +9,6 @@ import 'whatwg-fetch';
 let MovieResultsList = (props) => {
 	const {movies, addMovie} = props;
 
-debugger;
-
 	return (
 		<Container style={{ marginTop: '30px' }}>
 			<Panel>
@@ -26,15 +24,4 @@ debugger;
 	)
 }
 
-//get data into commponent
-const mapStateToProps = state => ({
-	//set on reducer using thunk
-  movies: state.searchResults
-});
-
-//get data out of component
-const mapDispatchToProps = dispatch => ({
-  addMovie: movie => dispatch( addMovie( movie ) ),
-});
-// export default MovieResultsList;
-export default connect( mapStateToProps, mapDispatchToProps )( MovieResultsList );
+export default MovieResultsList;

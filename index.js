@@ -7,7 +7,7 @@ import Thunk from 'redux-thunk';
 
 
 
-const movieReducer = ( state = { movies: [], stateCount: 0 }, action) => {
+const movieReducer = ( state = { movies: [], stateCount: 0, searchResults: [] }, action) => {
 	// debugger;
 	switch (action.type) {
 		case 'ADD_MOVIE_SUCCESS':

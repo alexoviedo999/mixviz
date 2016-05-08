@@ -9,9 +9,8 @@ import {
 } from 'muicss/react';
 import MovieResultsList from './MovieResultsList.jsx';
 import MovieCollection from './MovieCollection.jsx';
-import {searchMovies} from '../actions';
 import { connect } from 'react-redux'
-
+import { addMovie, searchMovies } from '../actions';
 
 class App extends Component {
 
@@ -44,8 +43,8 @@ class App extends Component {
 
 	render() {
 		const {movieSearch} = this.state;
-		const {movieResults} = this.state;
-		const { movies, addMovie, store } = this.props;
+		const { searchMovies, movies, movieResults, addMovie } = this.props;
+		console.log('props', this.props);
 	    // debugger;
 
 		return (
@@ -60,34 +59,31 @@ class App extends Component {
 								required={true}
 								value={movieSearch.title}
 								onChange={(e) => this.handleUpdate(e.target.value)} />
-							<Button variant="raised" type="submit" onClick={e => searchMovies(this.state.movieSearch.title)}>Send</Button>
+							<Button variant="raised" type="submit" onClick={e => searchMovies(movieSearch.title)}>Send</Button>
 						</div>
 					</Panel>
 				</Container>
-
-				<MovieResultsList />
-
-				<MovieCollection />
-
+				<MovieResultsList movies={movieResults} addMovie={addMovie}/>
+				<MovieCollection movies={movies}/>
 			</div>
 		)
 	}
-
 }
-
 
 //get data into commponent
 const mapStateToProps = state => ({
 	//set on reducer using thunk
-  movies: state.searchResults
+    movies: state.movies,
+	movieResults: state.searchResults
 });
 
 //get data out of component
-const mapDispatchToProps = dispatch => ({
-  addMovie: title => dispatch( searchMovies( title ) ),
-});
+const mapDispatchToProps = dispatch => {
+	// debugger;
+	return ({
+	  searchMovies: title => dispatch( searchMovies( title ) ),
+	  addMovie: movie => dispatch( addMovie( movie ) )
+	});
+}
 // export default MovieResultsList;
 export default connect( mapStateToProps, mapDispatchToProps )( App );
-
-
-export default App;

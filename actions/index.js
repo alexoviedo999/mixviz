@@ -6,7 +6,6 @@ export const addMovie = id => dispatch => {
     type: 'ADD_MOVIE_START',
     id
   });
-
   return fetch('http://api-public.guidebox.com/v1.43/us/rK0qtdrghc9FwaOoreuEdnOlbZA3SRPq/movie/'+ id)
     .then( d => d.json() )
     .then( d => dispatch( addMovieSuccess( d ) ) )
@@ -29,12 +28,15 @@ const addMovieError = error => ({
 export const searchMovies = title => dispatch => {
   dispatch({
     type: 'SEARCH_MOVIES_START',
-    id
+    title
   });
 
-  fetch('http://api-public.guidebox.com/v1.43/us/rK0qtdrghc9FwaOoreuEdnOlbZA3SRPq/search/movie/title/'+ movieSearch.title + '/exact')
+  // debugger;
+
+  return fetch('http://api-public.guidebox.com/v1.43/us/rK0qtdrghc9FwaOoreuEdnOlbZA3SRPq/search/movie/title/'+ title + '/exact')
   .then(function(response) {
     console.log('response', response);
+    // debugger;
       return response.json()
   })
   .then((body) => {
