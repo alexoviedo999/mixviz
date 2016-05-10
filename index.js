@@ -4,7 +4,7 @@ import App from './components/App.jsx';
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux';
 import Thunk from 'redux-thunk';
-
+import {persistStore, autoRehydrate} from 'redux-persist'
 
 
 const movieReducer = ( state = { movies: [], stateCount: 0, searchResults: [] }, action) => {
@@ -34,7 +34,9 @@ const movieReducer = ( state = { movies: [], stateCount: 0, searchResults: [] },
 	}
 };
 
-let store = createStore( movieReducer, applyMiddleware(Thunk) );
+//localstorage
+let store = createStore( movieReducer, applyMiddleware(Thunk), autoRehydrate() );
+persistStore(store);
 
 // debugger;
 console.log('store state', store.getState());
