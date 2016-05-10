@@ -1,5 +1,3 @@
-let nextMovieId = 0;
-
 
 export const addMovie = id => dispatch => {
   dispatch({
@@ -8,14 +6,16 @@ export const addMovie = id => dispatch => {
   });
   return fetch('http://api-public.guidebox.com/v1.43/us/rK0qtdrghc9FwaOoreuEdnOlbZA3SRPq/movie/'+ id)
     .then( d => d.json() )
-    .then( d => dispatch( addMovieSuccess( d ) ) )
+    .then( d => {
+      console.log('d', d);
+      return dispatch( addMovieSuccess( d ) )
+    })
     .catch( e => dispatch( addMovieError( e ) ) )
     ;
 };
 
 const addMovieSuccess = movie => ({
   type: 'ADD_MOVIE_SUCCESS',
-  id: nextMovieId++,
   movie
 })
 

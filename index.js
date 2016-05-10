@@ -4,22 +4,25 @@ import App from './components/App.jsx';
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux';
 import Thunk from 'redux-thunk';
-import {persistStore, autoRehydrate} from 'redux-persist'
+import { persistStore, autoRehydrate } from 'redux-persist'
 
 
 const movieReducer = ( state = { movies: [], stateCount: 0, searchResults: [] }, action) => {
 	// debugger;
 	switch (action.type) {
 		case 'ADD_MOVIE_SUCCESS':
+			console.log('action success', action);
 			return {
 				...state,
 				movies: [ ...state.movies,
 					{
-						id: action.id,
+						id: action.movie.id,
+						poster: action.movie.poster_120x171,
 						title: action.movie.original_title,
-						poster: action.movie.vote_average,
+						year: action.movie.release_year,
 						rating: action.movie.rating,
-
+						genres: action.movie.genres,
+						// cast: action.movies.cast
 					}]
 			};
 			break;
