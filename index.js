@@ -32,6 +32,12 @@ const movieReducer = ( state = { movies: [], stateCount: 0, searchResults: [] },
 				...state,
 				searchResults: action.movies
 			}
+
+		case 'DELETE_MOVIE':
+			return {
+				...state,
+				movies: state.movies.filter(movie => movie.id != action.id)
+			}
 		default:
 		return state;
 	}

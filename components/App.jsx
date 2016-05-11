@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
-import { Container, Panel } from 'muicss/react';
 import 'es6-promise';
 import 'whatwg-fetch';
 import {
 	Appbar,
 	Input,
-	Button
+	Button,
+	Container,
+	Panel
 } from 'muicss/react';
 import MovieResultsList from './MovieResultsList.jsx';
 import MovieCollection from './MovieCollection.jsx';
 import { connect } from 'react-redux'
-import { addMovie, searchMovies } from '../actions';
+import { addMovie, searchMovies, deleteMovie } from '../actions';
 
 class App extends Component {
 
@@ -18,10 +19,7 @@ class App extends Component {
 		super(props);
 
 		this.state = {
-			movieSearch: {
-				title: ''
-			},
-			movieResults: []
+			title: ''
 		}
 
 		// this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
@@ -30,25 +28,20 @@ class App extends Component {
 	}
 
 	handleUpdate(value){
-		//set student state
 		this.setState({
-			movieSearch: {
-				...this.state.movieSearch,
-				title: value
-			}
+			title: value
 		});
 	}
 
-
-
 	render() {
-		const {movieSearch} = this.state;
-		const { searchMovies, movies, movieResults, addMovie } = this.props;
+		const { title } = this.state;
+		const { searchMovies, movies, movieResults, addMovie, deleteMovie } = this.props;
 		console.log('props', this.props);
 	    // debugger;
 
 		return (
 			<div>
+				<h3 className="mui--text-center">Search New Movies</h3>
 				<Container style={{maxWidth: '600px', marginTop: '30px'}}>
 					<Panel>
 						<div className="mui--text-center">
@@ -57,14 +50,14 @@ class App extends Component {
 								label="Movie Title"
 								floatingLabel={true}
 								required={true}
-								value={movieSearch.title}
+								value={title}
 								onChange={(e) => this.handleUpdate(e.target.value)} />
-							<Button variant="raised" type="submit" onClick={e => searchMovies(movieSearch.title)}>Send</Button>
+							<Button variant="raised" type="submit" onClick={e => searchMovies(title)}>Send</Button>
 						</div>
 					</Panel>
 				</Container>
 				<MovieResultsList movies={movieResults} addMovie={addMovie}/>
-				<MovieCollection movies={movies}/>
+				<MovieCollection movies={movies} deleteMovie={deleteMovie}/>
 			</div>
 		)
 	}
@@ -82,7 +75,8 @@ const mapDispatchToProps = dispatch => {
 	// debugger;
 	return ({
 	  searchMovies: title => dispatch( searchMovies( title ) ),
-	  addMovie: movie => dispatch( addMovie( movie ) )
+	  addMovie: movie => dispatch( addMovie( movie ) ),
+	  deleteMovie: id => dispatch( deleteMovie(id))
 	});
 }
 // export default MovieResultsList;

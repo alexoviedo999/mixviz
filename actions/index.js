@@ -24,6 +24,10 @@ const addMovieError = error => ({
   error
 })
 
+export const deleteMovie = id => ({
+    type: 'DELETE_MOVIE',
+    id
+});
 
 export const searchMovies = title => dispatch => {
   dispatch({
