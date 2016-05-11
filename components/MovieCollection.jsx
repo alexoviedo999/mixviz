@@ -18,9 +18,7 @@ class MovieCollection extends Component {
 			filter: ''
 		}
 
-		// this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
 		this.handleUpdate = this.handleUpdate.bind(this);
-		// this.addToMovieCollection = this.addToMovieCollection.bind(this);
 	}
 
 	handleUpdate(value){
@@ -46,6 +44,8 @@ class MovieCollection extends Component {
         return true;
       } else if (re.test(movie.genres.map(genre => genre.title))) {
         return true;
+      } else if (re.test(movie.cast.map(actor => actor.name))) {
+        return true;
       }
     });
 
@@ -57,10 +57,16 @@ class MovieCollection extends Component {
         width: '100%',
         paddingLeft: '0'
       },
-
+      movieInfoDiv: {
+        width: '22%',
+        float: 'left'
+      },
+      movieInfo: {
+        width: '100%'
+      },
       liItemWrap: {
         width: '20%',
-        display: 'inline-block'
+        float: 'left'
       }
     }
 
@@ -88,11 +94,19 @@ class MovieCollection extends Component {
                 <li key={movie.id}>
                   <Panel>
                     <div style={movieListStyle.liItemWrap}><img src={ movie.poster }/></div>
-                    <div style={movieListStyle.liItemWrap}><strong>Title:</strong> { movie.title }</div>
-                    <div style={movieListStyle.liItemWrap}><strong>Release Year:</strong> {movie.year}</div>
-                    <div style={movieListStyle.liItemWrap}><strong>Rating:</strong> {movie.rating}</div>
+
+                    <div style={movieListStyle.movieInfoDiv}>
+                      <div style={movieListStyle.movieInfo}><strong>Title:</strong> { movie.title }</div>
+                      <div style={movieListStyle.movieInfo}><strong>Release Year:</strong> {movie.year}</div>
+                      <div style={movieListStyle.movieInfo}><strong>Rating:</strong> {movie.rating}</div>
+                    </div>
+                    <div style={movieListStyle.liItemWrap}><strong>Actors:</strong> {movie.cast.map((actor, i) => {
+                      if(i < 9) {
+                        return <div key={i} >{actor.name}</div>
+                      }
+                    })}</div>
                     <div style={movieListStyle.liItemWrap}><strong>Genres:</strong> {movie.genres.map( (genre, i) => <div key={i} >{genre.title}</div>)}</div>
-                    <Button onClick={(e) => deleteMovie(movie.id)}>Delete</Button>
+                    <Button color="danger" onClick={(e) => deleteMovie(movie.id)}>Delete</Button>
                   </Panel>
                 </li> ) )}
               </ul>

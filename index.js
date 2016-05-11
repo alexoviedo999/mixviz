@@ -22,7 +22,7 @@ const movieReducer = ( state = { movies: [], stateCount: 0, searchResults: [] },
 						year: action.movie.release_year,
 						rating: action.movie.rating,
 						genres: action.movie.genres,
-						// cast: action.movies.cast
+						cast: action.movie.cast
 					}]
 			};
 			break;
