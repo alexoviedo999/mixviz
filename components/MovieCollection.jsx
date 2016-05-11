@@ -37,8 +37,16 @@ class MovieCollection extends Component {
     const filter = this.state.filter;
     const filterMovies = filter === "" ? movies : movies.filter(movie => {
       const re = new RegExp(filter, 'i')
-      return re.test(movie.title)
-      // return movie.title === filter;
+
+      if (re.test(movie.title)) {
+        return re.test(movie.title);
+      } else if (re.test(movie.year)) {
+        return true;
+      } else if (re.test(movie.rating)) {
+        return true;
+      } else if (re.test(movie.genres.map(genre => genre.title))) {
+        return true;
+      }
     });
 
     console.log('collection', movies);
