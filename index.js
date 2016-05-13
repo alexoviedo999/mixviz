@@ -11,10 +11,8 @@ import MovieResultsList from './components/MovieResultsList.jsx'
 
 
 const movieReducer = ( state = { movies: [], stateCount: 0, searchResults: [] }, action) => {
-	// debugger;
 	switch (action.type) {
 		case 'ADD_MOVIE_SUCCESS':
-			console.log('action success', action);
 			return {
 				...state,
 				movies: [ ...state.movies,
@@ -49,8 +47,6 @@ const movieReducer = ( state = { movies: [], stateCount: 0, searchResults: [] },
 let store = createStore( movieReducer, compose(applyMiddleware(Thunk), autoRehydrate(), window.devToolsExtension ? window.devToolsExtension() : f => f));
 
 persistStore(store);
-
-console.log('store state', store.getState());
 
 function render() {
   ReactDOM.render(

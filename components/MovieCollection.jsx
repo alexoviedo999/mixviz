@@ -18,7 +18,6 @@ class MovieCollection extends Component {
 		this.state = {
 			filter: ''
 		}
-
 		this.handleUpdate = this.handleUpdate.bind(this);
 	}
 
@@ -29,13 +28,10 @@ class MovieCollection extends Component {
 	}
 
   render () {
-
-    console.log('mc props', this.props);
-
     const {movies, deleteMovie} = this.props;
     const filter = this.state.filter;
     const filterMovies = filter === '' ? movies : movies.filter(movie => {
-      const re = new RegExp(filter, 'i');
+    const re = new RegExp(filter, 'i');
 
       if (re.test(movie.title)) {
         return true;
@@ -49,8 +45,6 @@ class MovieCollection extends Component {
         return true;
       }
     });
-
-    console.log('collection', movies);
 
     const movieListStyle = {
       ul: {
@@ -74,43 +68,43 @@ class MovieCollection extends Component {
     return (
       <div>
         <h3 className="mui--text-center">Movie Collection</h3>
-          <Container style={{maxWidth: '600px', marginTop: '30px'}}>
-            <Panel>
-              <div className="mui--text-center">
-                <Input
-                  type="text"
-                  label="Search Collection"
-                  floatingLabel={true}
-                  required={true}
-                  value={filter}
-                  onChange={(e) => this.handleUpdate(e.target.value)} />
-              </div>
-            </Panel>
-          </Container>
+        <Container style={{maxWidth: '600px', marginTop: '30px'}}>
+          <Panel>
+            <div className="mui--text-center">
+              <Input
+                type="text"
+                label="Search Collection"
+                floatingLabel={true}
+                required={true}
+                value={filter}
+                onChange={(e) => this.handleUpdate(e.target.value)} />
+            </div>
+          </Panel>
+        </Container>
 
-          <Container>
-            <ul className=" mui--pull-left" style={movieListStyle.ul}>
-              { filterMovies.map((movie, i) => (
-                <li key={movie.id}>
-                  <Panel>
-                    <div style={movieListStyle.liItemWrap}><img src={ movie.poster }/></div>
-                    <div style={movieListStyle.movieInfoDiv}>
-                      <div style={movieListStyle.movieInfo}><strong>Title:</strong> { movie.title }</div>
-                      <div style={movieListStyle.movieInfo}><strong>Release Year:</strong> {movie.year}</div>
-                      <div style={movieListStyle.movieInfo}><strong>Rating:</strong> {movie.rating}</div>
-                    </div>
-                    <div style={movieListStyle.liItemWrap}><strong>Actors:</strong> {movie.cast.map((actor, i) => {
-                      if(i < 7) {
-                        return <div key={actor.id} >{actor.name}</div>;
-                      }
-                    })}</div>
-                  <div style={movieListStyle.liItemWrap}><strong>Genres:</strong> {movie.genres.map((genre, i) => <div key={genre.id} >{genre.title}</div>)}</div>
-                    <Button color="danger" onClick={(e) => deleteMovie(movie.id)}>Delete</Button>
-                  </Panel>
-                </li>))}
-              </ul>
-          </Container>
-        </div>
+        <Container>
+          <ul className=" mui--pull-left" style={movieListStyle.ul}>
+            { filterMovies.map((movie, i) => (
+              <li key={movie.id}>
+                <Panel>
+                  <div style={movieListStyle.liItemWrap}><img src={ movie.poster }/></div>
+                  <div style={movieListStyle.movieInfoDiv}>
+                    <div style={movieListStyle.movieInfo}><strong>Title:</strong> { movie.title }</div>
+                    <div style={movieListStyle.movieInfo}><strong>Release Year:</strong> {movie.year}</div>
+                    <div style={movieListStyle.movieInfo}><strong>Rating:</strong> {movie.rating}</div>
+                  </div>
+                  <div style={movieListStyle.liItemWrap}><strong>Actors:</strong> {movie.cast.map((actor, i) => {
+                    if(i < 7) {
+                      return <div key={actor.id} >{actor.name}</div>;
+                    }
+                  })}</div>
+                <div style={movieListStyle.liItemWrap}><strong>Genres:</strong> {movie.genres.map((genre, i) => <div key={genre.id} >{genre.title}</div>)}</div>
+                  <Button color="danger" onClick={(e) => deleteMovie(movie.id)}>Delete</Button>
+                </Panel>
+              </li>))}
+            </ul>
+        </Container>
+      </div>
     )
   }
 }
@@ -118,7 +112,6 @@ class MovieCollection extends Component {
 
 //get data into commponent
 const mapStateToProps = state => ({
-	//set on reducer using thunk
   movies: state.movies,
 });
 
@@ -128,5 +121,5 @@ const mapDispatchToProps = dispatch => {
 	  deleteMovie: id => dispatch(deleteMovie(id))
 	});
 }
-// export default MovieResultsList;
+
 export default connect( mapStateToProps, mapDispatchToProps )( MovieCollection );

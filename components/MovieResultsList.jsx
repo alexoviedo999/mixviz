@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
-import { Container, Panel, Divider, Input } from 'muicss/react';
+import { Container, Panel, Divider, Input, Form } from 'muicss/react';
 import { Button } from 'muicss/react';
 import { addMovie, searchMovies } from '../actions';
 import { connect } from 'react-redux'
-import 'es6-promise';
-import 'whatwg-fetch';
-
 
 class MovieResultsList extends Component {
 
@@ -23,7 +20,6 @@ class MovieResultsList extends Component {
 			title: value
 		});
 	}
-
 
 	render () {
 		const {movies, addMovie, searchMovies} = this.props;
@@ -46,14 +42,16 @@ class MovieResultsList extends Component {
 				<Container style={{maxWidth: '600px', marginTop: '30px'}}>
 					<Panel>
 						<div className="mui--text-center">
-							<Input
-								type="text"
-								label="Movie Title"
-								floatingLabel={true}
-								required={true}
-								value={title}
-								onChange={(e) => this.handleUpdate(e.target.value)} />
-							<Button variant="raised" type="submit" onClick={e => searchMovies(title)}>Search</Button>
+							<Form>
+								<Input
+									type="text"
+									label="Movie Title"
+									floatingLabel={true}
+									required={true}
+									value={title}
+									onChange={(e) => this.handleUpdate(e.target.value)} />
+								<Button variant="raised" type="submit" onClick={e => searchMovies(title)} onSubmit={e => searchMovies(title)}>Search</Button>
+							</Form>
 						</div>
 					</Panel>
 				</Container>
@@ -75,13 +73,11 @@ class MovieResultsList extends Component {
 				</div>
 			</Container>
 		)
-
 	}
 }
 
 //get data into commponent
 const mapStateToProps = state => ({
-	//set on reducer using thunk
 	movies: state.searchResults
 });
 
@@ -92,5 +88,5 @@ const mapDispatchToProps = dispatch => {
 	  addMovie: movie => dispatch(addMovie(movie)),
 	});
 }
-// export default MovieResultsList;
+
 export default connect( mapStateToProps, mapDispatchToProps )( MovieResultsList );

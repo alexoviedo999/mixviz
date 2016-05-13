@@ -1,3 +1,6 @@
+import 'es6-promise';
+import 'whatwg-fetch';
+
 
 export const addMovie = id => dispatch => {
   dispatch({
@@ -7,7 +10,6 @@ export const addMovie = id => dispatch => {
   return fetch('http://api-public.guidebox.com/v1.43/us/rK0qtdrghc9FwaOoreuEdnOlbZA3SRPq/movie/'+ id)
     .then( d => d.json() )
     .then( d => {
-      console.log('d', d);
       return dispatch( addMovieSuccess( d ) )
     })
     .catch( e => dispatch( addMovieError( e ) ) )
@@ -35,12 +37,8 @@ export const searchMovies = title => dispatch => {
     title
   });
 
-  // debugger;
-
   return fetch('http://api-public.guidebox.com/v1.43/us/rK0qtdrghc9FwaOoreuEdnOlbZA3SRPq/search/movie/title/'+ title + '/exact')
   .then(function(response) {
-    console.log('response', response);
-    // debugger;
       return response.json()
   })
   .then((body) => {
