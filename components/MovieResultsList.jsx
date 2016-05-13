@@ -25,7 +25,7 @@ let MovieResultsList = (props) => {
 		<Container style={{ marginTop: '30px' }}>
 			<div className="mui--text-center">
 				<ul className=" mui--pull-left" style={movieListStyle.ul}>
-					{ movies.map(( movie, i ) => <li key={i}>
+					{ movies.map(( movie, i ) => <li key={movie.id}>
 						<Panel>
 							<div style={movieListStyle.liItemWrap}>
 								<Button color="primary" style={movieListStyle.button} variant="raised" onClick={e => addMovie( movie.id)}>Add</Button>

@@ -37,7 +37,7 @@ class MovieCollection extends Component {
       const re = new RegExp(filter, 'i')
 
       if (re.test(movie.title)) {
-        return re.test(movie.title);
+        return true;
       } else if (re.test(movie.year)) {
         return true;
       } else if (re.test(movie.rating)) {
@@ -78,12 +78,11 @@ class MovieCollection extends Component {
               <div className="mui--text-center">
                 <Input
                   type="text"
-                  label="Movie Title"
+                  label="Search Collection"
                   floatingLabel={true}
                   required={true}
                   value={filter}
                   onChange={(e) => this.handleUpdate(e.target.value)} />
-                <Button variant="raised" type="submit" onClick={e => searchCollection()}>Search</Button>
               </div>
             </Panel>
           </Container>
@@ -94,18 +93,17 @@ class MovieCollection extends Component {
                 <li key={movie.id}>
                   <Panel>
                     <div style={movieListStyle.liItemWrap}><img src={ movie.poster }/></div>
-
                     <div style={movieListStyle.movieInfoDiv}>
                       <div style={movieListStyle.movieInfo}><strong>Title:</strong> { movie.title }</div>
                       <div style={movieListStyle.movieInfo}><strong>Release Year:</strong> {movie.year}</div>
                       <div style={movieListStyle.movieInfo}><strong>Rating:</strong> {movie.rating}</div>
                     </div>
                     <div style={movieListStyle.liItemWrap}><strong>Actors:</strong> {movie.cast.map((actor, i) => {
-                      if(i < 9) {
-                        return <div key={i} >{actor.name}</div>
+                      if(i < 7) {
+                        return <div key={actor.id} >{actor.name}</div>
                       }
                     })}</div>
-                    <div style={movieListStyle.liItemWrap}><strong>Genres:</strong> {movie.genres.map( (genre, i) => <div key={i} >{genre.title}</div>)}</div>
+                  <div style={movieListStyle.liItemWrap}><strong>Genres:</strong> {movie.genres.map( (genre, i) => <div key={genre.id} >{genre.title}</div>)}</div>
                     <Button color="danger" onClick={(e) => deleteMovie(movie.id)}>Delete</Button>
                   </Panel>
                 </li> ) )}

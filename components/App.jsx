@@ -52,7 +52,7 @@ class App extends Component {
 								required={true}
 								value={title}
 								onChange={(e) => this.handleUpdate(e.target.value)} />
-							<Button variant="raised" type="submit" onClick={e => searchMovies(title)}>Send</Button>
+							<Button variant="raised" type="submit" onClick={e => searchMovies(title)}>Search</Button>
 						</div>
 					</Panel>
 				</Container>
@@ -74,9 +74,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
 	// debugger;
 	return ({
-	  searchMovies: title => dispatch( searchMovies( title ) ),
-	  addMovie: movie => dispatch( addMovie( movie ) ),
-	  deleteMovie: id => dispatch( deleteMovie(id))
+	  searchMovies: title => dispatch(searchMovies(title)),
+	  addMovie: movie => dispatch(addMovie(movie)),
+	  deleteMovie: id => dispatch(deleteMovie(id))
 	});
 }
 // export default MovieResultsList;

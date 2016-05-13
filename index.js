@@ -26,13 +26,12 @@ const movieReducer = ( state = { movies: [], stateCount: 0, searchResults: [] },
 					}]
 			};
 			break;
-
 		case 'SEARCH_MOVIES_SUCCESS':
 			return {
 				...state,
 				searchResults: action.movies
-			}
-
+			};
+			break;
 		case 'DELETE_MOVIE':
 			return {
 				...state,
@@ -43,8 +42,9 @@ const movieReducer = ( state = { movies: [], stateCount: 0, searchResults: [] },
 	}
 };
 
-//localstorage
-let store = createStore( movieReducer, applyMiddleware(Thunk), autoRehydrate() );
+//localstorage using redux-persist
+let store = createStore( movieReducer, applyMiddleware(Thunk), autoRehydrate());
+
 persistStore(store);
 
 // debugger;
