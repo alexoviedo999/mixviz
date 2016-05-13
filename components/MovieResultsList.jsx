@@ -25,10 +25,10 @@ let MovieResultsList = (props) => {
 		<Container style={{ marginTop: '30px' }}>
 			<div className="mui--text-center">
 				<ul className=" mui--pull-left" style={movieListStyle.ul}>
-					{ movies.map(( movie, i ) => <li key={movie.id}>
+					{ movies.map((movie, i) => <li key={movie.id}>
 						<Panel>
 							<div style={movieListStyle.liItemWrap}>
-								<Button color="primary" style={movieListStyle.button} variant="raised" onClick={e => addMovie( movie.id)}>Add</Button>
+								<Button color="primary" style={movieListStyle.button} variant="raised" onClick={e => addMovie(movie.id)}>Add</Button>
 							</div>
 							<div style={movieListStyle.liItemWrap}><img src={ movie.poster_120x171 }/></div>
 							<div style={movieListStyle.liItemWrap}><strong>Title:</strong> { movie.original_title }</div>

@@ -15,7 +15,7 @@ import { addMovie, searchMovies, deleteMovie } from '../actions';
 
 class App extends Component {
 
-	constructor(props) {
+	constructor (props) {
 		super(props);
 
 		this.state = {
@@ -27,17 +27,16 @@ class App extends Component {
 		// this.addToMovieCollection = this.addToMovieCollection.bind(this);
 	}
 
-	handleUpdate(value){
+	handleUpdate (value) {
 		this.setState({
 			title: value
 		});
 	}
 
-	render() {
+	render () {
 		const { title } = this.state;
 		const { searchMovies, movies, movieResults, addMovie, deleteMovie } = this.props;
 		console.log('props', this.props);
-	    // debugger;
 
 		return (
 			<div>
@@ -72,7 +71,6 @@ const mapStateToProps = state => ({
 
 //get data out of component
 const mapDispatchToProps = dispatch => {
-	// debugger;
 	return ({
 	  searchMovies: title => dispatch(searchMovies(title)),
 	  addMovie: movie => dispatch(addMovie(movie)),

@@ -47,14 +47,10 @@ let store = createStore( movieReducer, applyMiddleware(Thunk), autoRehydrate());
 
 persistStore(store);
 
-// debugger;
 console.log('store state', store.getState());
 
-
 function render() {
-
   ReactDOM.render(
-
 	<Provider store={store}>
 		<App />
 	</Provider>,

@@ -11,7 +11,7 @@ import {
 
 class MovieCollection extends Component {
 
-	constructor(props) {
+	constructor (props) {
 		super(props);
 
 		this.state = {
@@ -21,7 +21,7 @@ class MovieCollection extends Component {
 		this.handleUpdate = this.handleUpdate.bind(this);
 	}
 
-	handleUpdate(value){
+	handleUpdate (value) {
 		this.setState({
 			filter: value
 		});
@@ -29,12 +29,12 @@ class MovieCollection extends Component {
 
   render () {
 
-    console.log('mc props', this.props)
+    console.log('mc props', this.props);
 
     const {movies, deleteMovie} = this.props;
     const filter = this.state.filter;
-    const filterMovies = filter === "" ? movies : movies.filter(movie => {
-      const re = new RegExp(filter, 'i')
+    const filterMovies = filter === '' ? movies : movies.filter(movie => {
+      const re = new RegExp(filter, 'i');
 
       if (re.test(movie.title)) {
         return true;
@@ -89,7 +89,7 @@ class MovieCollection extends Component {
 
           <Container>
             <ul className=" mui--pull-left" style={movieListStyle.ul}>
-              { filterMovies.map( ( movie, i ) => (
+              { filterMovies.map((movie, i) => (
                 <li key={movie.id}>
                   <Panel>
                     <div style={movieListStyle.liItemWrap}><img src={ movie.poster }/></div>
@@ -100,13 +100,13 @@ class MovieCollection extends Component {
                     </div>
                     <div style={movieListStyle.liItemWrap}><strong>Actors:</strong> {movie.cast.map((actor, i) => {
                       if(i < 7) {
-                        return <div key={actor.id} >{actor.name}</div>
+                        return <div key={actor.id} >{actor.name}</div>;
                       }
                     })}</div>
-                  <div style={movieListStyle.liItemWrap}><strong>Genres:</strong> {movie.genres.map( (genre, i) => <div key={genre.id} >{genre.title}</div>)}</div>
+                  <div style={movieListStyle.liItemWrap}><strong>Genres:</strong> {movie.genres.map((genre, i) => <div key={genre.id} >{genre.title}</div>)}</div>
                     <Button color="danger" onClick={(e) => deleteMovie(movie.id)}>Delete</Button>
                   </Panel>
-                </li> ) )}
+                </li>))}
               </ul>
           </Container>
         </div>
