@@ -39,6 +39,7 @@ class MovieResultsList extends Component {
 
 		return (
 			<Container style={{ marginTop: '30px' }}>
+				<h3 className="mui--text-center">Add Movies</h3>
 				<Container style={{maxWidth: '600px', marginTop: '30px'}}>
 					<Panel>
 						<div className="mui--text-center">

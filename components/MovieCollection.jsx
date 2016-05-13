@@ -67,8 +67,8 @@ class MovieCollection extends Component {
 
     return (
       <div>
-        <h3 className="mui--text-center">Movie Collection</h3>
         <Container style={{maxWidth: '600px', marginTop: '30px'}}>
+          <h3 className="mui--text-center">Movie Collection</h3>
           <Panel>
             <div className="mui--text-center">
               <Input

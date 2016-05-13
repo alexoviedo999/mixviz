@@ -1,7 +1,6 @@
 import 'es6-promise';
 import 'whatwg-fetch';
 
-
 export const addMovie = id => dispatch => {
   dispatch({
     type: 'ADD_MOVIE_START',
