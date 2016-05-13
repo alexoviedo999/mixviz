@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App.jsx';
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux';
 import Thunk from 'redux-thunk';
 import { persistStore, autoRehydrate } from 'redux-persist'
+import { Router, Route, IndexRoute, hashHistory} from 'react-router'
+import MovieCollection from './components/MovieCollection.jsx'
+import MovieResultsList from './components/MovieResultsList.jsx'
 
 
 const movieReducer = ( state = { movies: [], stateCount: 0, searchResults: [] }, action) => {
@@ -43,7 +46,7 @@ const movieReducer = ( state = { movies: [], stateCount: 0, searchResults: [] },
 };
 
 //localstorage using redux-persist
-let store = createStore( movieReducer, applyMiddleware(Thunk), autoRehydrate());
+let store = createStore( movieReducer, compose(applyMiddleware(Thunk), autoRehydrate(), window.devToolsExtension ? window.devToolsExtension() : f => f));
 
 persistStore(store);
 
@@ -52,11 +55,14 @@ console.log('store state', store.getState());
 function render() {
   ReactDOM.render(
 	<Provider store={store}>
-		<App />
+		<Router history={hashHistory}>
+			<Route component={App} path="/">
+				<IndexRoute component={MovieCollection}/>
+				<Route path="add-movie" component={MovieResultsList} />
+			</Route>
+		</Router>
 	</Provider>,
     document.getElementById('root')
   );
 }
-
 render()
-// store.subscribe(render)

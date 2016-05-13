@@ -4,7 +4,7 @@
   "description": "movie collection manager using react, redux, and local storage",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server --hot --inline"
   },
   "author": "Alejandro Oviedo",
   "license": "ISC",

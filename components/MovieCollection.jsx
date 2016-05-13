@@ -7,6 +7,7 @@ import {
 	Container,
 	Panel
 } from 'muicss/react';
+import { deleteMovie } from '../actions';
 
 
 class MovieCollection extends Component {
@@ -114,4 +115,18 @@ class MovieCollection extends Component {
   }
 }
 
-export default MovieCollection;
+
+//get data into commponent
+const mapStateToProps = state => ({
+	//set on reducer using thunk
+  movies: state.movies,
+});
+
+//get data out of component
+const mapDispatchToProps = dispatch => {
+	return ({
+	  deleteMovie: id => dispatch(deleteMovie(id))
+	});
+}
+// export default MovieResultsList;
+export default connect( mapStateToProps, mapDispatchToProps )( MovieCollection );
