@@ -11,19 +11,19 @@ import MovieResultsList from './components/MovieResultsList.jsx'
 
 
 const movieReducer = ( state = { movies: [], stateCount: 0, searchResults: [] }, action) => {
+	// debugger;
+	console.log('state movies', state.movies)
 	switch (action.type) {
-		case 'ADD_MOVIE_SUCCESS':
+		case 'ADD_MOVIE':
 			return {
 				...state,
 				movies: [ ...state.movies,
 					{
 						id: action.movie.id,
-						poster: action.movie.poster_120x171,
-						title: action.movie.original_title,
-						year: action.movie.release_year,
-						rating: action.movie.rating,
-						genres: action.movie.genres,
-						cast: action.movie.cast
+						artwork: action.movie.artwork_url,
+						title: action.movie.title,
+						duration: action.movie.duration,
+						user: action.movie.user.username
 					}]
 			};
 			break;

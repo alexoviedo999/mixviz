@@ -1,24 +1,12 @@
 import 'es6-promise';
 import 'whatwg-fetch';
 
-export const addMovie = id => dispatch => {
+export const addMovie = movie => dispatch => {
   dispatch({
-    type: 'ADD_MOVIE_START',
-    id
+    type: 'ADD_MOVIE',
+    movie
   });
-  return fetch('http://api-public.guidebox.com/v1.43/us/rK0qtdrghc9FwaOoreuEdnOlbZA3SRPq/movie/'+ id)
-    .then( d => d.json() )
-    .then( d => {
-      return dispatch( addMovieSuccess( d ) )
-    })
-    .catch( e => dispatch( addMovieError( e ) ) )
-    ;
 };
-
-const addMovieSuccess = movie => ({
-  type: 'ADD_MOVIE_SUCCESS',
-  movie
-})
 
 const addMovieError = error => ({
   type: 'ADD_MOVIE_ERROR',
@@ -36,13 +24,13 @@ export const searchMovies = title => dispatch => {
     title
   });
 
-  return fetch('http://api-public.guidebox.com/v1.43/us/rK0qtdrghc9FwaOoreuEdnOlbZA3SRPq/search/movie/title/'+ title + '/exact')
+  return fetch('http://api.soundcloud.com/tracks.json?client_id=887885805d5ee95bbfd14693f644bf19&q='+ title + '&limit=30')
   .then(function(response) {
       return response.json()
   })
   .then((body) => {
       console.log('success', body);
-      dispatch( searchMoviesSuccess(body.results));
+      dispatch( searchMoviesSuccess(body));
   })
   .catch(function(error) {
       console.log('request failed', error)

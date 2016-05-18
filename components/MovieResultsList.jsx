@@ -24,6 +24,7 @@ class MovieResultsList extends Component {
 	render () {
 		const {movies, addMovie, searchMovies} = this.props;
 		const title  = this.state.title;
+		console.log('movies', movies);
 
 		const movieListStyle = {
 			ul: {
@@ -62,12 +63,12 @@ class MovieResultsList extends Component {
 						{ movies.map((movie, i) => <li key={movie.id}>
 							<Panel>
 								<div style={movieListStyle.liItemWrap}>
-									<Button color="primary" style={movieListStyle.button} variant="raised" onClick={e => addMovie(movie.id)}>Add</Button>
+									<Button color="primary" style={movieListStyle.button} variant="raised" onClick={e => addMovie(movie)}>Add</Button>
 								</div>
-								<div style={movieListStyle.liItemWrap}><img src={ movie.poster_120x171 }/></div>
-								<div style={movieListStyle.liItemWrap}><strong>Title:</strong> { movie.original_title }</div>
-								<div style={movieListStyle.liItemWrap}><strong>Release Year:</strong> {movie.release_year}</div>
-								<div style={movieListStyle.liItemWrap}><strong>Rating:</strong> {movie.rating}</div>
+								<div style={movieListStyle.liItemWrap}><img src={ movie.artwork_url }/></div>
+								<div style={movieListStyle.liItemWrap}><strong>Title:</strong> { movie.title }</div>
+								<div style={movieListStyle.liItemWrap}><strong>Duration:</strong> {movie.duration}</div>
+								<div style={movieListStyle.liItemWrap}><strong>Name:</strong> {movie.user.username}</div>
 							</Panel>
 						</li>)}
 					</ul>

@@ -29,41 +29,28 @@ class MovieCollection extends Component {
 
   render () {
     const {movies, deleteMovie} = this.props;
+    console.log('movies collection', movies)
     const filter = this.state.filter;
     const filterMovies = filter === '' ? movies : movies.filter(movie => {
     const re = new RegExp(filter, 'i');
-
       if (re.test(movie.title)) {
         return true;
-      } else if (re.test(movie.year)) {
-        return true;
-      } else if (re.test(movie.rating)) {
-        return true;
-      } else if (re.test(movie.genres.map(genre => genre.title))) {
-        return true;
-      } else if (re.test(movie.cast.map(actor => actor.name))) {
+      } else if (re.test(movie.user)) {
         return true;
       }
     });
 
     const movieListStyle = {
-      ul: {
-        listStyleType: 'none',
-        width: '100%',
-        paddingLeft: '0'
-      },
-      movieInfoDiv: {
-        width: '22%',
-        float: 'left'
-      },
-      movieInfo: {
-        width: '100%'
-      },
-      liItemWrap: {
-        width: '20%',
-        float: 'left'
-      }
-    }
+			ul: {
+				listStyleType: 'none',
+				width: '100%',
+				paddingLeft: '0'
+			},
+			liItemWrap: {
+				width: '20%',
+				display: 'inline-block'
+			}
+		}
 
     return (
       <div>
@@ -87,18 +74,10 @@ class MovieCollection extends Component {
             { filterMovies.map((movie, i) => (
               <li key={movie.id}>
                 <Panel>
-                  <div style={movieListStyle.liItemWrap}><img src={ movie.poster }/></div>
-                  <div style={movieListStyle.movieInfoDiv}>
-                    <div style={movieListStyle.movieInfo}><strong>Title:</strong> { movie.title }</div>
-                    <div style={movieListStyle.movieInfo}><strong>Release Year:</strong> {movie.year}</div>
-                    <div style={movieListStyle.movieInfo}><strong>Rating:</strong> {movie.rating}</div>
-                  </div>
-                  <div style={movieListStyle.liItemWrap}><strong>Actors:</strong> {movie.cast.map((actor, i) => {
-                    if(i < 7) {
-                      return <div key={actor.id} >{actor.name}</div>;
-                    }
-                  })}</div>
-                <div style={movieListStyle.liItemWrap}><strong>Genres:</strong> {movie.genres.map((genre, i) => <div key={genre.id} >{genre.title}</div>)}</div>
+                  <div style={movieListStyle.liItemWrap}><img src={ movie.artwork }/></div>
+  								<div style={movieListStyle.liItemWrap}><strong>Title:</strong> { movie.title }</div>
+  								<div style={movieListStyle.liItemWrap}><strong>Duration:</strong> {movie.duration}</div>
+  								<div style={movieListStyle.liItemWrap}><strong>Name:</strong> {movie.user}</div>
                   <Button color="danger" onClick={(e) => deleteMovie(movie.id)}>Delete</Button>
                 </Panel>
               </li>))}
